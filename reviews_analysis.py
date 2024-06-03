@@ -4,10 +4,12 @@ from collections import defaultdict, Counter
 
 import numpy as np
 import pandas as pd
+import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk
 from wordcloud import WordCloud
+
+nltk.download('stopwords')
 
 def load_data(file_path):
     """
