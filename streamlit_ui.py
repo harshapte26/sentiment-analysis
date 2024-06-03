@@ -25,6 +25,13 @@ if uploaded_file is not None:
 
     if choice == 'Frequency of Ratings-Reviews':
         st.header('Frequency of Each Rating')
+        markdown_content = """
+We start with plotting frequency count for each rating in dataset. \\
+We can observe
+- Ratings are disproptiontely distributed, having more 4, 5 ratings than 1,2
+"""
+
+        st.markdown(markdown_content)
         fig, ax = plt.subplots(figsize=(6, 5))
         ax.bar(preprocessed_df['Rating'].value_counts().index, preprocessed_df['Rating'].value_counts().values)
         ax.set_xlabel('Rating')
@@ -34,6 +41,17 @@ if uploaded_file is not None:
 
     elif choice == 'Age Distribution of Reviews':
         st.header('Age Distribution Plot')
+        markdown_text = """
+We are visualizing the number of reviews by age. \
+
+While exploring the data, I found out that the range for age in dataset was  ```min = 18 to max = 99```. \
+
+As we are looking at product reviews dataset, I decided to put in into buckets of age groups for easier and relevant analysis. \
+
+We can observe that age data is ***normally distributed***
+"""
+
+        st.markdown(markdown_text)
         age_distribution = age_distribution_plot(preprocessed_df)
 
         fig, ax = plt.subplots()
@@ -45,6 +63,17 @@ if uploaded_file is not None:
 
     elif choice == 'Sentiment Count':
         st.header('Sentiment Count Plot')
+        markdown_text = """
+Here I have plotted number of reviews against two important variables - \\
+- Product Type 
+- Age Groups
+
+For counting positive and negative reviews, I used feature column - *ratings* available in the dataset. I used threshold to distinguish between negative and positive reviews. \\
+```ratings < 3 = Negative``` \\
+```ratings >= 3 = Positive```
+"""
+
+        st.markdown(markdown_text)
         rating_threshold = 3  # Example threshold
 
         # Add a dropdown for column selection
@@ -85,6 +114,13 @@ if uploaded_file is not None:
 
     elif choice == 'Review Length Analysis':
         st.header("Review Length Analysis")
+        markdown_content = """
+This is an important analysis to observe median review length by each age group. \
+
+We can see that generally the number is equivalent but for certain age groups there are more negative reviews than positive ones.
+"""
+
+        st.markdown(markdown_content)
         rating_threshold = 3  # Example threshold
         positive_reviews, negative_reviews = review_length_plot(preprocessed_df, rating_threshold)
         st.subheader('Average Review Length by Age Group and Sentiment Type')
@@ -104,6 +140,15 @@ if uploaded_file is not None:
 
     elif choice == "What's working and What's not working(Pain Points)?":
         st.header('Top Features by Category and Sentiment')
+        markdown_content = """
+Most important analysis of the dataset
+
+In this window we are visualiazing the ***Pain Points*** of the customers as well as ***What is working and What is Not?***
+
+Word cloud gives us a quick yet informative picture of most commonly mentioned words in reviews. Ability to see Top Positive and Negative featured words by each Product **Type** gives us deeper insights for business teams to aspects they should primarilt focus upon.
+"""
+
+        st.markdown(markdown_content)
         category_col = 'Type'  # Example category column
         text_col = 'Combined_Title_Review'  # Example text column
         sentiment_col = 'sentiment'  # Example sentiment column
@@ -122,6 +167,16 @@ if uploaded_file is not None:
             st.pyplot(fig)
         else:
             st.write('No features available for the selected category and sentiment.')
+
+        markdown_content = """
+If I had more time available, these are the additional tasks I would have implemented as part of my future plan - 
+- Topic Modelling for product types
+- Product ID level analysis (I have observed that each product category/type has same ProductID used by different age groups, so there is some scope for analysis here)
+- More modularized and cleaner code
+"""
+
+        st.markdown(markdown_content)
+
 
 else:
     st.write("Please upload a CSV file to proceed.")
