@@ -3,4 +3,4 @@ pandas
 nltk
 wordcloud
 matplotlib
-sklearn
+scikit-learn
